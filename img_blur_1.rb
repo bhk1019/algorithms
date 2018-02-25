@@ -14,10 +14,7 @@ class Image
   def blur 
   width = self.img_array[0].length
   height = self.img_array.length
-  blurred_image_array = [[0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0]]
+  blurred_image_array = Array.new(height){ Array.new(width, 0) }
 
   height.times do |i|
     width.times do |j|
@@ -37,8 +34,12 @@ class Image
         end
         if i < height - 1
           blurred_image_array[i+1][j] = 1
-          
         end
+
+        blurred_image_array.each do |i|
+          puts "#{i.join}\n"
+        end
+
       end
 
     end
