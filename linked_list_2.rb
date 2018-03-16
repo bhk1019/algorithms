@@ -45,16 +45,46 @@ def print_values(list_node)
 end
 
 def reverse_list(list, previous=nil)
-  # set list's node to nil
-  # set previous's node to list
-  # call again, with list = previous, and previous = previous's old node
+  if list == nil
+    return previous
+  end
+  next_node = list.next_node
+  list.next_node = previous
+  reverse_list(next_node, list)
+end
+
+def is_infinite?(list)
+  tortoise = list
+  hare = list
+  
+  loop do
+    if hare == nil
+      return false
+    else
+      hare = hare.next_node
+      if hare == nil
+        return false
+      else
+        hare = hare.next_node
+        tortoise = tortoise.next_node
+        break if hare == tortoise
+      end
+    end
+  end
+  return true
 end
 
 node1 = LinkedListNode.new(37)
 node2 = LinkedListNode.new(99, node1)
 node3 = LinkedListNode.new(12, node2)
 node4 = LinkedListNode.new(25, node3)
+node5 = LinkedListNode.new(29, node4)
+node6 = LinkedListNode.new(84, node5)
+node7 = LinkedListNode.new(100, node6)
+node1.next_node = node7
 
-print_values(node4)
+puts is_infinite?(node7)
 
-print_values(reverse_list(node4, node3))
+# print_values(node4)
+
+# print_values(reverse_list(node4))
